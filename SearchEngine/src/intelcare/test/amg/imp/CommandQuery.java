@@ -24,21 +24,11 @@ public class CommandQuery implements Command {
 	public boolean process(String[] commandArray) {
 		String exp = patternExp(commandArray);
 		Pattern pattern = Pattern.compile(exp);
-
 		LinkedList<String> matchedDocIds = new LinkedList<String>();
 		for (String docId : linkedIndexMap.keySet()) {
 			LinkedList<String> tokensList = linkedIndexMap.get(docId);
 			Matcher matcher = pattern.matcher(tokensList.toString());
-			/*
-			 * if (matcher.matches()) { matchedDocIds.add(docId); }
-			 */
-			int i = 0;
-			while (matcher.find()) {
-				i++;
-			}
-			if (i > 0) {
-				matchedDocIds.add(docId);
-			}
+			if (matcher.find()) { matchedDocIds.add(docId); }
 		}
 		if (matchedDocIds.size() > 0) {
 			StringBuffer sb = new StringBuffer();
